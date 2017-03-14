@@ -14,13 +14,13 @@ export const listen = ()=>(dispatch)=>{
 
 export const sendMessage = (data, type, cb)=>()=>{
   data.optimistKey = Math.round(Math.random() * 5000)
-  const user = {
-    email: 'hillshum@gmail.com',
-    username: 'TODO'
-  }
   store.dispatch({
     type: types.ADD_MESSAGE,
-    payload: {type: 'text', data, user, updatedAt: new Date().toISOString()}
+    payload: {
+      type: 'text',
+      data,
+      user: store.getState().user,
+      updatedAt: new Date().toISOString()}
   })
   server.sendMessage(data, type)
   if (typeof cb === 'function') cb(args)
